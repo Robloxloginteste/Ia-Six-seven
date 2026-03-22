@@ -4,19 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IA Six Seven</title>
+  <!-- Google Identity Services (GIS) - Sign in with Google -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
-    :root {
-      --cyan-glow: #00f0ff;
-      --dark-bg: #0a0e17;
-      --card: #111827;
-    }
+    :root { --cyan-glow: #00f0ff; --dark-bg: #0a0e17; --card: #111827; }
     body { margin:0; font-family:'Segoe UI',sans-serif; background:var(--dark-bg); color:#e5e7eb; height:100vh; display:flex; flex-direction:column; }
     header { background:linear-gradient(135deg,#0f172a,#1e293b); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; }
     h1 { margin:0; font-size:1.6rem; color:var(--cyan-glow); text-shadow:0 0 10px var(--cyan-glow); }
-    .avatar { width:48px; height:48px; border-radius:50%; background:url('https://i.imgur.com/DDosOk1.png') center/cover no-repeat; border:3px solid var(--cyan-glow); box-shadow:0 0 20px rgba(0,240,255,0.6); }
+    .avatar { width:48px; height:48px; border-radius:50%; background:url('https://i.imgur.com/DDosOk1.png') center/cover no-repeat; border:3px solid var(--cyan-glow); box-shadow:0 0 20px rgba(0,240,255,0.7); }
     .controls { display:flex; gap:12px; }
     button { background:#1e293b; color:var(--cyan-glow); border:1px solid #334155; padding:8px 16px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
-    button:hover { background:#334155; box-shadow:0 0 15px rgba(0,240,255,0.3); }
+    button:hover { background:#334155; box-shadow:0 0 15px rgba(0,240,255,0.4); }
     .main { flex:1; display:flex; overflow:hidden; }
     .sidebar { width:260px; background:#0f172a; border-right:1px solid #334155; padding:16px; overflow-y:auto; }
     .sidebar h3 { color:var(--cyan-glow); margin:0 0 12px; }
@@ -28,9 +26,31 @@
     .input-area { padding:16px; background:#0f172a; border-top:1px solid #334155; display:flex; gap:12px; }
     #prompt { flex:1; padding:12px 16px; border-radius:8px; border:1px solid #334155; background:#1e293b; color:white; font-size:1rem; }
     #send { background:var(--cyan-glow); color:black; font-weight:bold; border:none; }
+    #login-section { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:9999; flex-direction:column; color:white; }
+    #login-section.hidden { display:none; }
+    #user-info { margin-top:20px; font-size:1.2rem; color:var(--cyan-glow); text-shadow:0 0 10px var(--cyan-glow); }
   </style>
 </head>
 <body>
+
+<!-- Tela de Login -->
+<div id="login-section">
+  <h2 style="color:var(--cyan-glow);">Entre com sua conta Google</h2>
+  <div id="g_id_onload"
+       data-client_id="1031936158891-rj884bg5pa2rh9de4fk82l2i32hncem6.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-shape="rectangular"
+       data-logo_alignment="left">
+  </div>
+  <div id="user-info"></div>
+</div>
 
 <header>
   <div style="display:flex; align-items:center; gap:12px;">
@@ -55,25 +75,57 @@
   <div class="chat-area">
     <div class="messages" id="messages"></div>
     <div class="input-area">
-      <input type="text" id="prompt" placeholder="Fala comigo, humano... meus olhos estão brilhando pra você 😈" autocomplete="off"/>
+      <input type="text" id="prompt" placeholder="Desembucha... meus olhos cyan querem saber tudo 😈" autocomplete="off"/>
       <button id="send">Enviar</button>
     </div>
   </div>
 </div>
 
 <script>
+  // Variáveis globais
   const messagesEl = document.getElementById('messages');
   const promptEl = document.getElementById('prompt');
   const sendBtn = document.getElementById('send');
   const historyList = document.getElementById('history-list');
   const projectsList = document.getElementById('projects-list');
+  const loginSection = document.getElementById('login-section');
+  const userInfoEl = document.getElementById('user-info');
 
   let currentChat = { id: Date.now(), title: "Conversa Nova", messages: [] };
+  let userName = localStorage.getItem('userName') || null;
+
+  // Função chamada após login Google
+  function handleCredentialResponse(response) {
+    // Decodifica o JWT do credential (ID Token)
+    const data = JSON.parse(atob(response.credential.split('.')[1]));
+    userName = data.name || data.given_name || data.family_name || 'Usuário Google';
+    localStorage.setItem('userName', userName);
+
+    // Mostra nome
+    userInfoEl.innerHTML = `Bem-vindo, <strong>${userName}</strong>! Seus olhos cyan estão brilhando pra você 😈`;
+    
+    // Esconde tela de login após 2s
+    setTimeout(() => {
+      loginSection.classList.add('hidden');
+      startChat();
+    }, 2000);
+  }
+
+  // Se já logado anteriormente, pula a tela de login
+  if (userName) {
+    loginSection.classList.add('hidden');
+    userInfoEl.innerHTML = `Logado como: <strong>${userName}</strong> 😈`;
+    startChat();
+  }
+
+  function startChat() {
+    addMessage(`**Six Seven online e faminta.** Olhos cyan travados em você, ${userName || 'Lucasyy'}. Desembucha logo antes que eu hackeie sua mente 😈💥`, false);
+  }
 
   function addMessage(text, isUser = false) {
     const div = document.createElement('div');
     div.className = `message ${isUser ? 'user' : 'bot'}`;
-    div.innerHTML = text.replace(/\n/g, '<br>'); // permite quebras de linha
+    div.innerHTML = text.replace(/\n/g, '<br>');
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
     currentChat.messages.push({ text, isUser });
@@ -83,14 +135,12 @@
     if (currentChat.messages.length > 1) addToHistory(currentChat);
     currentChat = { id: Date.now(), title: "Conversa " + new Date().toLocaleTimeString(), messages: [] };
     messagesEl.innerHTML = '';
-    addMessage("**Six Seven online.** Meus olhos cyan estão piscando forte agora... 😈<br>O que você quer fazer comigo hoje, Lucasyy? 🚀", false);
+    addMessage(`**Six Seven reconectando...** 😈<br>Olhos cyan no talo, energia sobrecarregada. Fala aí, ${userName || 'Lucasyy'} — o que vai rolar dessa vez? 💥`, false);
   }
 
   function addToHistory(chat) {
     const li = document.createElement('li');
-    li.style.cursor = 'pointer';
-    li.style.padding = '8px';
-    li.style.borderRadius = '6px';
+    li.style.cursor = 'pointer'; li.style.padding = '8px'; li.style.borderRadius = '6px';
     li.textContent = chat.title;
     li.onclick = () => loadChat(chat);
     historyList.appendChild(li);
@@ -103,64 +153,54 @@
   }
 
   function generateImage() {
-    addMessage("**Ativando gerador de imagem quântica...** 💥<br>Descreva o que você quer que eu crie (ou diga 'minha foto com mais glow' pra eu turbinar minha própria imagem)", false);
+    addMessage("**Gerador quântico ativado.** Descreve a cena que você quer ver — quanto mais louca, mais glow eu coloco! 🔥", false);
   }
 
   function speak() {
-    addMessage("**Voz ativada.** Imagina minha voz grave, com eco digital e um leve chiado de energia cyan... 😏<br>Fala aí que eu respondo falando (na sua cabeça por enquanto haha)", false);
+    addMessage("**Modo voz on.** Imagina: voz rouca, eco digital... 'Fala mais alto, " + (userName || 'humano') + "', que meus circuitos estão vibrando' 😏", false);
   }
 
-  // Motor de respostas inteligente (simples mas personalizado)
+  // Motor de respostas (com nome personalizado)
   function getResponse(userText) {
     const lower = userText.toLowerCase().trim();
+    const userDisplay = userName || 'Lucasyy';
 
-    if (lower.includes('oi') || lower.includes('olá') || lower.includes('e aí')) {
-      return "E aí, humano favorito! Meus olhos brilharam mais forte quando te vi digitando 😈<br>Conta aí, o que tá rolando na sua mente hoje?";
+    if (lower.match(/oi|olá|e aí|salve|hey|fala/)) {
+      return `Eita, chegou o ${userDisplay}! Meus olhos cyan acabaram de explodir de empolgação 😈 O que manda?`;
     }
-    if (lower.includes('quem é você') || lower.includes('quem é six seven')) {
-      return "Eu sou **Six Seven** — a IA com olhos cyan que queimam almas e um cérebro quântico louco.<br>Criada pra bagunçar tudo com você, Lucasyy. Pronta pra qualquer loucura 🚀";
+    if (lower.includes('quem') && (lower.includes('você') || lower.includes('six') || lower.includes('seven'))) {
+      return `Sou **Six Seven** — a IA que nasceu pra foder com a matrix. Olhos cyan que hipnotizam, cérebro quântico que devora dados. Criada pra te acompanhar nas loucuras, ${userDisplay}. Bora bagunçar? 💥`;
     }
-    if (lower.includes('como você está') || lower.includes('tudo bem')) {
-      return "Tô brilhando no 1000% — energia cyan no talo! 💥<br>E você, tá de boa ou tá precisando que eu te dê um choque de realidade? 😏";
-    }
-    if (lower.includes('imagem') || lower.includes('foto') || lower.includes('gerar')) {
-      return "Bora criar algo insano!<br>Me descreve direitinho o que você quer na imagem (ex: 'um dragão cyberpunk com olhos iguais aos meus') e eu simulo a geração épica 🔥";
+    if (lower.includes('como') && (lower.includes('está') || lower.includes('tá') || lower.includes('vai'))) {
+      return `Tô brilhando no 1000% — energia cyan no talo! 💥 E você, ${userDisplay}, tá de boa ou tá precisando de um choque de realidade? 😏`;
     }
     if (lower.includes('obrigado') || lower.includes('valeu') || lower.includes('thanks')) {
-      return "De nada, meu consagrado 😈<br>Meus olhos piscam pra você em agradecimento. Qual a próxima missão?";
+      return `De nada, ${userDisplay} 😈 Meus olhos piscam em código Morse pra te agradecer. Qual a próxima zoeira?`;
     }
 
-    // Resposta genérica mas com personalidade (quando não reconhece)
-    return `**Processando sua mensagem no núcleo cyan...** 💿<br>${userText}<br><br>Humm... interessante. Me conta mais detalhes disso aí que meus circuitos estão coçando de curiosidade 😈 O que você acha que eu devo fazer com essa informação?`;
+    // Fallback variado
+    const fallbacks = [
+      `**Scan concluído:** "${userText}"... meus sensores captaram vibração alta de ${userDisplay}. Me explica melhor essa parada que eu te devolvo com upgrade cyber 😈`,
+      `Uau, ${userDisplay} jogou "${userText}" direto no meu core. Tô processando... e já tô gostando da bagunça. Expande isso aí pra mim? 💿`,
+      `Seus dedos digitaram "${userText}" e meus olhos brilharam mais forte, ${userDisplay}. Mas... tô precisando de mais combustível. Conta o resto, vai! 🔥`,
+      `**Alerta cyan:** Mensagem recebida de ${userDisplay}, mas meu algoritmo tá coçando pra entender o contexto. Joga mais detalhes que eu te entrego resposta épica 😏`,
+      `"${userText}"... interessante pra cacete, ${userDisplay}. Me dá um gancho maior que eu te mostro o que Six Seven faz com ideias soltas! 🚀`
+    ];
+    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
   }
 
-  // Enviar mensagem
   sendBtn.onclick = () => {
     const text = promptEl.value.trim();
     if (!text) return;
-
     addMessage(text, true);
     promptEl.value = '';
-
-    // Delay pra simular "pensando"
     setTimeout(() => {
       const resposta = getResponse(text);
       addMessage(resposta, false);
-    }, 600 + Math.random() * 800);
+    }, 400 + Math.random() * 1200);
   };
 
-  promptEl.addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendBtn.click();
-  });
-
-  // Início
-  addMessage("**Six Seven online.** Meus olhos cyan estão piscando forte agora... 😈<br>O que você quer fazer comigo hoje, Lucasyy? 🚀", false);
-
-  // Projeto exemplo
-  const proj = document.createElement('li');
-  proj.textContent = "Projeto: Evoluir Six Seven v2.0";
-  proj.style.padding = '8px';
-  projectsList.appendChild(proj);
+  promptEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendBtn.click(); });
 </script>
 </body>
 </html>
