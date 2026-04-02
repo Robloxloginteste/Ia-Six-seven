@@ -8,17 +8,14 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background: linear-gradient(135deg, #1a0f00, #3d2a00);
             color: #fff;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
         }
 
         /* Navbar */
@@ -26,8 +23,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(20, 12, 0, 0.98);
-            backdrop-filter: blur(10px);
+            background: rgba(20, 12, 0, 0.97);
+            backdrop-filter: blur(12px);
             padding: 20px 8%;
             display: flex;
             justify-content: space-between;
@@ -42,35 +39,26 @@
             font-weight: 700;
         }
 
-        .highlight {
-            color: #ff8800;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
+        .highlight { color: #ff8800; }
 
         .nav-links a {
             color: #ddd;
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 8px;
             transition: 0.3s;
         }
 
         .nav-links a:hover {
             color: #ff8800;
-            background: rgba(255, 136, 0, 0.1);
+            background: rgba(255, 136, 0, 0.15);
         }
 
         /* Hero - Corrigido */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -82,21 +70,17 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(rgba(26,15,0,0.8), rgba(61,42,0,0.9));
+            inset: 0;
+            background: linear-gradient(rgba(26,15,0,0.82), rgba(61,42,0,0.9));
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
         }
 
         .hero h2 {
-            font-size: 4.2rem;
+            font-size: 4.4rem;
             font-weight: 700;
             background: linear-gradient(to right, #ffaa00, #ff5500);
             -webkit-background-clip: text;
@@ -105,30 +89,39 @@
         }
 
         .hero-subtitle {
-            font-size: 1.6rem;
+            font-size: 1.65rem;
             color: #ddd;
             margin-bottom: 40px;
         }
 
         .btn-primary {
-            padding: 16px 50px;
+            padding: 16px 48px;
             font-size: 1.3rem;
             background: linear-gradient(90deg, #ff8800, #ff4400);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
         }
 
         .btn-primary:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
         }
 
-        /* Seções */
+        /* Animações suaves (sem bug) */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         section {
-            padding: 100px 5%;
+            padding: 110px 5% 100px;
         }
 
         .section-title {
@@ -156,9 +149,9 @@
 
         .step-number {
             background: #ff8800;
-            color: black;
-            width: 50px;
-            height: 50px;
+            color: #000;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -180,10 +173,10 @@
         .warning {
             background: rgba(255, 60, 60, 0.2);
             border: 1px solid #ff5555;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 30px auto;
+            padding: 18px;
+            border-radius: 12px;
             max-width: 800px;
+            margin: 30px auto;
             text-align: center;
         }
     </style>
@@ -192,7 +185,7 @@
 
     <nav class="navbar">
         <h1 class="brand-name">Bacon <span class="highlight">Executor</span></h1>
-        <ul class="nav-links">
+        <ul class="nav-links" style="list-style: none; display: flex; gap: 25px;">
             <li><a href="#features">Features</a></li>
             <li><a href="#install">Como Instalar</a></li>
             <li><a href="#download">Download</a></li>
@@ -208,42 +201,52 @@
     </section>
 
     <section id="features">
-        <h2 class="section-title">Por que escolher Bacon Executor?</h2>
+        <h2 class="section-title animate-on-scroll">Por que escolher Bacon Executor?</h2>
         <div class="features-grid">
-            <div class="feature-card">🔓 Sem Key</div>
-            <div class="feature-card">🛡️ Sem Vírus</div>
-            <div class="feature-card">💰 Grátis Forever</div>
-            <div class="feature-card">⚡ Atualizações Rápidas</div>
-            <div class="feature-card">🎯 Fácil de Usar</div>
-            <div class="feature-card">🔒 Alta Estabilidade</div>
+            <div class="feature-card animate-on-scroll">🔓 Sem Key</div>
+            <div class="feature-card animate-on-scroll">🛡️ Sem Vírus</div>
+            <div class="feature-card animate-on-scroll">💰 Grátis Forever</div>
+            <div class="feature-card animate-on-scroll">⚡ Atualizações Rápidas</div>
+            <div class="feature-card animate-on-scroll">🎯 Fácil de Usar</div>
+            <div class="feature-card animate-on-scroll">🔒 Alta Estabilidade</div>
         </div>
     </section>
 
     <section id="install" style="background: rgba(10, 5, 0, 0.95);">
-        <h2 class="section-title">Como Instalar e Usar</h2>
-        <div class="warning">
-            ⚠️ Desative seu antivírus temporariamente antes de instalar.
+        <h2 class="section-title animate-on-scroll">Como Instalar e Usar</h2>
+        <div class="warning animate-on-scroll">
+            ⚠️ Desative temporariamente seu antivírus antes de instalar.
         </div>
         <div class="install-steps">
-            <div class="step-card"><div class="step-number">1</div><h3>Baixe o arquivo</h3></div>
-            <div class="step-card"><div class="step-number">2</div><h3>Extraia o zip</h3></div>
-            <div class="step-card"><div class="step-number">3</div><h3>Execute como Administrador</h3></div>
-            <div class="step-card"><div class="step-number">4</div><h3>Abra o Roblox</h3></div>
-            <div class="step-card"><div class="step-number">5</div><h3>Clique em Attach</h3></div>
-            <div class="step-card"><div class="step-number">6</div><h3>Execute o Script</h3></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">1</div><h3>Baixe o Executor</h3></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">2</div><h3>Extraia o arquivo</h3></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">3</div><h3>Execute como Administrador</h3></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">4</div><h3>Abra o Roblox</h3></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">5</div><h3>Clique em Attach</h3></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">6</div><h3>Execute o Script</h3></div>
         </div>
     </section>
 
     <section id="download">
-        <h2 class="section-title">Download</h2>
-        <div class="download-card">
+        <h2 class="section-title animate-on-scroll">Download</h2>
+        <div class="download-card animate-on-scroll">
             <h3>Bacon Executor v2.3.5</h3>
-            <p>Tamanho: 21,6 MB</p>
-            <button class="btn-primary" style="margin-top: 30px; width: 100%; padding: 18px;" onclick="alert('Download iniciado! (simulado)')">
+            <p>Tamanho: 21,6 MB • Windows 10/11</p>
+            <button onclick="alert('Download iniciado (simulado)')" class="btn-primary" style="margin-top:30px; width:100%; padding:18px;">
                 ⬇ Baixar Grátis Agora
             </button>
         </div>
     </section>
 
+    <script>
+        // Animação simples ao rolar
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
