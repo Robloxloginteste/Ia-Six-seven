@@ -4,33 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bacon Executor - Free Roblox Exploit</title>
-    
+   
+    <link rel="icon" type="image/png" href="icon.png">
+   
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         html { scroll-behavior: smooth; }
-
+        
         body {
             background: linear-gradient(135deg, #1a0f00, #3d2a00);
             color: #fff;
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Navbar */
+        /* Animações ao rolar (mantidas) */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar fixa */
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(20, 12, 0, 0.97);
-            backdrop-filter: blur(12px);
-            padding: 20px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 8%;
+            background: rgba(26, 15, 0, 0.97);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 140, 0, 0.4);
         }
 
         .brand-name {
@@ -38,113 +52,99 @@
             font-size: 28px;
             font-weight: 700;
         }
+        .highlight { color: #ff8800; text-shadow: 0 0 20px #ff8800; }
 
-        .highlight { color: #ff8800; }
-
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
         .nav-links a {
             color: #ddd;
             text-decoration: none;
             font-weight: 500;
-            padding: 10px 18px;
+            padding: 8px 18px;
             border-radius: 8px;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
-
         .nav-links a:hover {
             color: #ff8800;
             background: rgba(255, 136, 0, 0.15);
         }
 
-        /* Hero - Corrigido */
+        /* Hero */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             background: url('https://images.unsplash.com/photo-1611996575749-79a3ae8b8c4a?ixlib=rb-4.0.3&auto=format&fit=crop&q=80') no-repeat center center/cover;
             position: relative;
-            padding-top: 80px;
         }
-
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(rgba(26,15,0,0.82), rgba(61,42,0,0.9));
+            background: linear-gradient(rgba(26,15,0,0.88), rgba(61,42,0,0.93));
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h2 {
-            font-size: 4.4rem;
+        .hero-content h2 {
+            font-size: 4.8rem;
             font-weight: 700;
-            background: linear-gradient(to right, #ffaa00, #ff5500);
+            background: linear-gradient(to right, #ff8800, #ff4400);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
         }
-
         .hero-subtitle {
-            font-size: 1.65rem;
+            font-size: 1.7rem;
+            margin: 20px 0 40px;
             color: #ddd;
-            margin-bottom: 40px;
         }
 
-        .btn-primary {
-            padding: 16px 48px;
-            font-size: 1.3rem;
-            background: linear-gradient(90deg, #ff8800, #ff4400);
-            color: white;
+        .btn {
+            padding: 16px 42px;
+            font-size: 1.25rem;
+            font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
+            transition: all 0.4s;
         }
-
+        .btn-primary {
+            background: linear-gradient(90deg, #ff8800, #ff4400);
+            color: white;
+        }
         .btn-primary:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Animações suaves (sem bug) */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s ease-out;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        section {
-            padding: 110px 5% 100px;
+            transform: translateY(-6px) scale(1.05);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.8rem;
-            margin-bottom: 60px;
+            margin: 110px 0 60px;
             color: #ff8800;
         }
 
         .features-grid, .install-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 28px;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 5%;
         }
 
         .feature-card, .step-card {
-            background: rgba(50, 30, 10, 0.85);
+            background: rgba(50, 30, 10, 0.8);
             border: 1px solid rgba(255, 140, 0, 0.4);
-            border-radius: 16px;
-            padding: 30px;
+            border-radius: 18px;
+            padding: 32px 25px;
             text-align: center;
+        }
+        .feature-card:hover, .step-card:hover {
+            transform: translateY(-12px);
+            border-color: #ff8800;
         }
 
         .step-number {
@@ -153,100 +153,155 @@
             width: 55px;
             height: 55px;
             border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin: 0 auto 15px;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
         }
 
         .download-card {
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             background: linear-gradient(145deg, #3d2a00, #1a0f00);
             border: 2px solid #ff8800;
-            border-radius: 20px;
-            padding: 50px;
-            text-align: center;
+            border-radius: 22px;
+            padding: 55px 40px;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #00ff88, #00cc66);
+            color: #000;
+            font-size: 1.45rem;
+            padding: 20px 65px;
+            margin-top: 35px;
         }
 
         .warning {
-            background: rgba(255, 60, 60, 0.2);
-            border: 1px solid #ff5555;
+            background: rgba(255, 60, 60, 0.18);
+            border: 1px solid #ff4444;
             padding: 18px;
             border-radius: 12px;
-            max-width: 800px;
-            margin: 30px auto;
+            margin: 40px auto;
+            max-width: 900px;
             text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: #0f0a00;
+            color: #777;
+        }
+
+        /* Correção principal do bug */
+        section {
+            scroll-margin-top: 100px;   /* Evita que a navbar cubra o título */
         }
     </style>
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <h1 class="brand-name">Bacon <span class="highlight">Executor</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#install" class="nav-link">Como Instalar</a></li>
+                <li><a href="#download" class="nav-link">Download</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <nav class="navbar">
-        <h1 class="brand-name">Bacon <span class="highlight">Executor</span></h1>
-        <ul class="nav-links" style="list-style: none; display: flex; gap: 25px;">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#install">Como Instalar</a></li>
-            <li><a href="#download">Download</a></li>
-        </ul>
-    </nav>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>The Best Roblox Executor</h2>
+                <p class="hero-subtitle">Rápido. Indetectável. Totalmente Grátis.</p>
+                <a href="#download" class="btn btn-primary">Baixar Agora - v2.3.5</a>
+            </div>
+        </section>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h2>The Best Roblox Executor</h2>
-            <p class="hero-subtitle">Rápido. Indetectável. Totalmente Grátis.</p>
-            <a href="#download" class="btn-primary">Baixar Agora - v2.3.5</a>
-        </div>
-    </section>
+        <section id="features">
+            <h2 class="section-title animate-on-scroll">Por que escolher Bacon Executor?</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll"><div class="feature-icon">🔓</div><h3>Sem Key</h3><p>Não precisa de chave de ativação.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon">🛡️</div><h3>Sem Vírus</h3><p>100% limpo (simulado).</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon">💰</div><h3>Grátis Forever</h3><p>Sem cobranças escondidas.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon">⚡</div><h3>Atualizações Rápidas</h3><p>Suporte contra Byfron/Hyperion.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon">🎯</div><h3>Fácil de Usar</h3><p>Interface moderna.</p></div>
+                <div class="feature-card animate-on-scroll"><div class="feature-icon">🔒</div><h3>Alta Estabilidade</h3><p>Bypass avançado.</p></div>
+            </div>
+        </section>
 
-    <section id="features">
-        <h2 class="section-title animate-on-scroll">Por que escolher Bacon Executor?</h2>
-        <div class="features-grid">
-            <div class="feature-card animate-on-scroll">🔓 Sem Key</div>
-            <div class="feature-card animate-on-scroll">🛡️ Sem Vírus</div>
-            <div class="feature-card animate-on-scroll">💰 Grátis Forever</div>
-            <div class="feature-card animate-on-scroll">⚡ Atualizações Rápidas</div>
-            <div class="feature-card animate-on-scroll">🎯 Fácil de Usar</div>
-            <div class="feature-card animate-on-scroll">🔒 Alta Estabilidade</div>
-        </div>
-    </section>
+        <section id="install" style="padding: 100px 5%; background: rgba(10, 5, 0, 0.95);">
+            <h2 class="section-title animate-on-scroll">Como Instalar e Usar</h2>
+            <div class="warning animate-on-scroll">
+                ⚠️ Desative temporariamente seu antivírus antes de instalar. Use apenas para fins educativos.
+            </div>
+            <div class="install-steps">
+                <div class="step-card animate-on-scroll"><div class="step-number">1</div><h3>Baixe o Executor</h3><p>Clique no botão de download e salve o .zip.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">2</div><h3>Extraia o Arquivo</h3><p>Clique direito → Extrair Tudo.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">3</div><h3>Execute o Programa</h3><p>Abra <strong>BaconExecutor.exe</strong> como administrador.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">4</div><h3>Abra o Roblox</h3><p>Entre em qualquer jogo.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">5</div><h3>Attach</h3><p>Clique em Attach ou pressione <strong>Insert</strong>.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">6</div><h3>Execute Scripts</h3><p>Cole o script e clique em Executar.</p></div>
+            </div>
+        </section>
 
-    <section id="install" style="background: rgba(10, 5, 0, 0.95);">
-        <h2 class="section-title animate-on-scroll">Como Instalar e Usar</h2>
-        <div class="warning animate-on-scroll">
-            ⚠️ Desative temporariamente seu antivírus antes de instalar.
-        </div>
-        <div class="install-steps">
-            <div class="step-card animate-on-scroll"><div class="step-number">1</div><h3>Baixe o Executor</h3></div>
-            <div class="step-card animate-on-scroll"><div class="step-number">2</div><h3>Extraia o arquivo</h3></div>
-            <div class="step-card animate-on-scroll"><div class="step-number">3</div><h3>Execute como Administrador</h3></div>
-            <div class="step-card animate-on-scroll"><div class="step-number">4</div><h3>Abra o Roblox</h3></div>
-            <div class="step-card animate-on-scroll"><div class="step-number">5</div><h3>Clique em Attach</h3></div>
-            <div class="step-card animate-on-scroll"><div class="step-number">6</div><h3>Execute o Script</h3></div>
-        </div>
-    </section>
+        <section id="download" style="padding: 100px 5%;">
+            <h2 class="section-title animate-on-scroll">Download</h2>
+            <div class="download-card animate-on-scroll">
+                <div class="download-info">
+                    <h3>Bacon Executor v2.3.5</h3>
+                    <p>Última atualização: Abril 2026</p>
+                    <ul style="list-style: none; margin: 30px 0; text-align: left; font-size: 1.15rem;">
+                        <li>✔ Tamanho: 21,6 MB</li>
+                        <li>✔ Compatível: Windows 10 / 11</li>
+                        <li>✔ Versão: 2.3.5 (Build 235)</li>
+                    </ul>
+                </div>
+                <button class="btn btn-download" onclick="startDownload()">⬇ Baixar Grátis Agora</button>
+            </div>
+        </section>
+    </main>
 
-    <section id="download">
-        <h2 class="section-title animate-on-scroll">Download</h2>
-        <div class="download-card animate-on-scroll">
-            <h3>Bacon Executor v2.3.5</h3>
-            <p>Tamanho: 21,6 MB • Windows 10/11</p>
-            <button onclick="alert('Download iniciado (simulado)')" class="btn-primary" style="margin-top:30px; width:100%; padding:18px;">
-                ⬇ Baixar Grátis Agora
-            </button>
-        </div>
-    </section>
+    <footer>
+        <p>Desenvolvido com ❤️ por <span style="color:#ff8800;">OlhadinhaDEV</span> • © 2026 Bacon Executor</p>
+    </footer>
 
     <script>
-        // Animação simples ao rolar
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
-                    el.classList.add('visible');
-                }
+        // Animações ao rolar (mantidas)
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            elements.forEach(el => observer.observe(el));
+        }
+
+        // Clique nos links → apenas scroll suave (removida a animação pesada que bugava)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove qualquer animação anterior para evitar conflito
+                document.querySelectorAll('section').forEach(s => s.classList.remove('section-target'));
             });
         });
+
+        function startDownload() {
+            alert("✅ Download iniciado! (21,6 MB)\n\nSalvando BaconExecutor_v2.3.5.zip...");
+            setTimeout(() => {
+                alert("✅ Download concluído!\n\nAgora siga os passos em 'Como Instalar'.");
+            }, 1400);
+        }
+
+        window.addEventListener('load', handleScrollAnimation);
     </script>
 </body>
 </html>
