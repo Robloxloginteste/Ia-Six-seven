@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bacon Executor - Free Roblox Exploit</title>
-   
+  
     <link rel="icon" type="image/png" href="icon.png">
-   
+  
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-        
+       
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+       
         html { scroll-behavior: smooth; }
-        
+       
         body {
             background: linear-gradient(135deg, #1a0f00, #3d2a00);
             color: #fff;
@@ -33,6 +33,56 @@
             transform: translateY(0);
         }
 
+        /* ==================== ANIMAÇÕES DA HERO ==================== */
+        .hero-content h2 {
+            font-size: 4.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ff8800, #ff4400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: titlePop 1.2s ease forwards 0.3s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.7rem;
+            margin: 20px 0 40px;
+            color: #ddd;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.9s;
+        }
+
+        .btn-primary {
+            padding: 16px 42px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff8800, #ff4400);
+            color: white;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 1.4s;
+        }
+
+        /* Keyframes das animações */
+        @keyframes titlePop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Navbar */
         .navbar {
             display: flex;
@@ -46,14 +96,12 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 140, 0, 0.4);
         }
-
         .brand-name {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 28px;
             font-weight: 700;
         }
         .highlight { color: #ff8800; text-shadow: 0 0 20px #ff8800; }
-
         .nav-links {
             list-style: none;
             display: flex;
@@ -88,35 +136,10 @@
             inset: 0;
             background: linear-gradient(rgba(26,15,0,0.85), rgba(61,42,0,0.9));
         }
-
-        .hero-content h2 {
-            font-size: 4.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #ff8800, #ff4400);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-subtitle {
-            font-size: 1.7rem;
-            margin: 20px 0 40px;
-            color: #ddd;
-        }
-
-        .btn {
-            padding: 16px 42px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s;
-        }
-        .btn-primary {
-            background: linear-gradient(90deg, #ff8800, #ff4400);
-            color: white;
-        }
-        .btn-primary:hover {
-            transform: translateY(-6px) scale(1.05);
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
         }
 
         .section-title {
@@ -125,7 +148,6 @@
             margin: 110px 0 60px;
             color: #ff8800;
         }
-
         .features-grid, .install-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -134,7 +156,6 @@
             margin: 0 auto;
             padding: 0 5%;
         }
-
         .feature-card, .step-card {
             background: rgba(50, 30, 10, 0.8);
             border: 1px solid rgba(255, 140, 0, 0.4);
@@ -146,7 +167,6 @@
             transform: translateY(-12px);
             border-color: #ff8800;
         }
-
         .step-number {
             background: #ff8800;
             color: #000;
@@ -160,7 +180,6 @@
             font-size: 1.6rem;
             margin-bottom: 20px;
         }
-
         .download-card {
             max-width: 520px;
             margin: 0 auto;
@@ -169,7 +188,6 @@
             border-radius: 22px;
             padding: 55px 40px;
         }
-
         .btn-download {
             background: linear-gradient(90deg, #00ff88, #00cc66);
             color: #000;
@@ -177,7 +195,6 @@
             padding: 20px 65px;
             margin-top: 35px;
         }
-
         .warning {
             background: rgba(255, 60, 60, 0.18);
             border: 1px solid #ff4444;
@@ -187,16 +204,14 @@
             max-width: 900px;
             text-align: center;
         }
-
         footer {
             text-align: center;
-            padding: 50px 20px;
+            padding: 60px 20px 40px;
             background: #0f0a00;
             color: #aaa;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
         }
-
-        /* Link azul sublinhado */
         .roblox-link {
             color: #00b0ff;
             text-decoration: underline;
@@ -204,11 +219,6 @@
         }
         .roblox-link:hover {
             color: #00d4ff;
-        }
-
-        /* Correção do bug do scroll */
-        section {
-            scroll-margin-top: 100px;
         }
     </style>
 </head>
@@ -281,10 +291,13 @@
 
     <footer>
         <p>
-            Siga o DONO No Roblox! ( eu ) 
+            Siga o DONO No Roblox! ( eu )
             <a href="https://www.roblox.com/pt/users/9630022401/profile" target="_blank" class="roblox-link">
                 Olhadinhaso
             </a>
+        </p>
+        <p style="margin-top: 12px; font-size: 1rem; color: #777;">
+            Todos os direitos reservados © 2026 Bacon Executor
         </p>
     </footer>
 
