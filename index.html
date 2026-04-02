@@ -33,7 +33,7 @@
             transform: translateY(0);
         }
 
-        /* ==================== ANIMAÇÕES DA HERO ==================== */
+        /* Animações da Hero */
         .hero-content h2 {
             font-size: 4.8rem;
             font-weight: 700;
@@ -54,6 +54,7 @@
             animation: fadeUp 1s ease forwards 0.9s;
         }
 
+        /* Botão Principal (Hero) */
         .btn-primary {
             padding: 16px 42px;
             font-size: 1.25rem;
@@ -66,9 +67,35 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease forwards 1.4s;
+            transition: all 0.4s ease;           /* Animação suave */
         }
 
-        /* Keyframes das animações */
+        .btn-primary:hover {
+            transform: translateY(-6px) scale(1.08);   /* Fica um pouco maior */
+        }
+
+        /* Botão de Download - Laranja e Redondo */
+        .btn-download {
+            background: linear-gradient(90deg, #ff8800, #ff5500);
+            color: #000;
+            font-size: 1.45rem;
+            font-weight: 700;
+            padding: 20px 65px;
+            margin-top: 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;               /* Animação suave */
+            box-shadow: 0 8px 25px rgba(255, 136, 0, 0.4);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-8px) scale(1.08);   /* Fica um pouco maior */
+            box-shadow: 0 12px 35px rgba(255, 136, 0, 0.6);
+            background: linear-gradient(90deg, #ffaa00, #ff6600);
+        }
+
+        /* Keyframes */
         @keyframes titlePop {
             to {
                 opacity: 1;
@@ -187,13 +214,6 @@
             border: 2px solid #ff8800;
             border-radius: 22px;
             padding: 55px 40px;
-        }
-        .btn-download {
-            background: linear-gradient(90deg, #00ff88, #00cc66);
-            color: #000;
-            font-size: 1.45rem;
-            padding: 20px 65px;
-            margin-top: 35px;
         }
         .warning {
             background: rgba(255, 60, 60, 0.18);
