@@ -72,7 +72,7 @@
             background: rgba(255, 136, 0, 0.15);
         }
 
-        /* === HERO CORRIGIDO === */
+        /* Hero */
         .hero {
             height: 100vh;
             display: flex;
@@ -81,20 +81,12 @@
             text-align: center;
             background: url('https://images.unsplash.com/photo-1611996575749-79a3ae8b8c4a?ixlib=rb-4.0.3&auto=format&fit=crop&q=80') no-repeat center center/cover;
             position: relative;
-            padding-top: 80px; /* espaço para navbar */
         }
-
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(rgba(26,15,0,0.85), rgba(61,42,0,0.9));
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
         }
 
         .hero-content h2 {
@@ -103,12 +95,10 @@
             background: linear-gradient(to right, #ff8800, #ff4400);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
         }
-
         .hero-subtitle {
             font-size: 1.7rem;
-            margin-bottom: 40px;
+            margin: 20px 0 40px;
             color: #ddd;
         }
 
@@ -132,7 +122,7 @@
         .section-title {
             text-align: center;
             font-size: 2.8rem;
-            margin: 120px 0 60px;
+            margin: 110px 0 60px;
             color: #ff8800;
         }
 
@@ -151,6 +141,10 @@
             border-radius: 18px;
             padding: 32px 25px;
             text-align: center;
+        }
+        .feature-card:hover, .step-card:hover {
+            transform: translateY(-12px);
+            border-color: #ff8800;
         }
 
         .step-number {
@@ -198,10 +192,21 @@
             text-align: center;
             padding: 50px 20px;
             background: #0f0a00;
-            color: #777;
+            color: #aaa;
+            font-size: 1.1rem;
         }
 
-        /* Correção final do bug do scroll */
+        /* Link azul sublinhado */
+        .roblox-link {
+            color: #00b0ff;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        .roblox-link:hover {
+            color: #00d4ff;
+        }
+
+        /* Correção do bug do scroll */
         section {
             scroll-margin-top: 100px;
         }
@@ -275,7 +280,12 @@
     </main>
 
     <footer>
-        <p>Desenvolvido com ❤️ por <span style="color:#ff8800;">OlhadinhaDEV</span> • © 2026 Bacon Executor</p>
+        <p>
+            Siga o DONO No Roblox! ( eu ) 
+            <a href="https://www.roblox.com/pt/users/9630022401/profile" target="_blank" class="roblox-link">
+                Olhadinhaso
+            </a>
+        </p>
     </footer>
 
     <script>
