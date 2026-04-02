@@ -18,29 +18,46 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth; /* Scroll suave nativo */
         }
 
-        /* Animações principais */
+        /* Animações gerais */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(60px);
+                transform: translateY(80px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Animação especial quando clica no menu */
+        .section-highlight {
+            animation: highlightSection 1.2s ease forwards;
+        }
+
+        @keyframes highlightSection {
+            0% {
+                opacity: 0.6;
+                transform: translateY(40px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* Navbar */
@@ -49,13 +66,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 8%;
-            background: rgba(26, 15, 0, 0.95);
+            background: rgba(26, 15, 0, 0.96);
             backdrop-filter: blur(12px);
             position: fixed;
             width: 100%;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 140, 0, 0.4);
-            transition: all 0.4s;
         }
 
         .brand-name {
@@ -69,19 +85,22 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 35px;
         }
 
         .nav-links a {
             color: #ddd;
             text-decoration: none;
             font-weight: 500;
-            transition: 0.3s;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .nav-links a:hover { color: #ff8800; }
+        .nav-links a:hover {
+            color: #ff8800;
+        }
 
-        /* Hero com animação inicial */
+        /* Hero */
         .hero {
             height: 100vh;
             display: flex;
@@ -96,54 +115,41 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(26,15,0,0.85), rgba(61,42,0,0.92));
+            background: linear-gradient(rgba(26,15,0,0.88), rgba(61,42,0,0.93));
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-
-        .hero h2 {
+        .hero-content h2 {
             font-size: 4.8rem;
             font-weight: 700;
-            margin-bottom: 15px;
             background: linear-gradient(to right, #ff8800, #ff4400);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeInUp 1.2s ease forwards;
         }
 
         .hero-subtitle {
             font-size: 1.7rem;
-            margin-bottom: 40px;
+            margin: 20px 0 40px;
             color: #ddd;
-            animation: fadeInUp 1.4s ease forwards;
         }
 
         .btn {
-            padding: 16px 40px;
+            padding: 16px 42px;
             font-size: 1.25rem;
             font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.4s;
-            text-decoration: none;
-            display: inline-block;
         }
 
         .btn-primary {
             background: linear-gradient(90deg, #ff8800, #ff4400);
             color: white;
             box-shadow: 0 10px 35px rgba(255, 136, 0, 0.5);
-            animation: fadeInUp 1.6s ease forwards;
         }
 
         .btn-primary:hover {
             transform: translateY(-6px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 136, 0, 0.7);
         }
 
         .section-title {
@@ -168,18 +174,12 @@
             border-radius: 18px;
             padding: 32px 25px;
             text-align: center;
-            transition: all 0.5s;
         }
 
         .feature-card:hover, .step-card:hover {
             transform: translateY(-12px);
             border-color: #ff8800;
             box-shadow: 0 25px 50px rgba(255, 136, 0, 0.35);
-        }
-
-        .feature-icon, .step-number {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
         }
 
         .step-number {
@@ -193,6 +193,7 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.6rem;
+            margin-bottom: 20px;
         }
 
         .download-card {
@@ -213,10 +214,6 @@
             margin-top: 35px;
         }
 
-        .btn-download:hover {
-            transform: scale(1.08);
-        }
-
         .warning {
             background: rgba(255, 60, 60, 0.18);
             border: 1px solid #ff4444;
@@ -225,18 +222,13 @@
             margin: 40px auto;
             max-width: 900px;
             text-align: center;
-            font-size: 1.08rem;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
+            padding: 50px 20px;
             background: #0f0a00;
             color: #777;
-        }
-
-        @media (max-width: 768px) {
-            .hero h2 { font-size: 3.2rem; }
         }
     </style>
 </head>
@@ -247,9 +239,9 @@
                 <h1 class="brand-name">Bacon <span class="highlight">Executor</span></h1>
             </div>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#install">Como Instalar</a></li>
-                <li><a href="#download">Download</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#install" class="nav-link">Como Instalar</a></li>
+                <li><a href="#download" class="nav-link">Download</a></li>
             </ul>
         </nav>
     </header>
@@ -314,7 +306,7 @@
     </footer>
 
     <script>
-        // Animação ao rolar a página
+        // Animação ao rolar normalmente
         function handleScrollAnimation() {
             const elements = document.querySelectorAll('.animate-on-scroll');
             const observer = new IntersectionObserver((entries) => {
@@ -323,15 +315,37 @@
                         entry.target.classList.add('visible');
                     }
                 });
-            }, {
-                threshold: 0.15,   // começa a animar quando 15% do elemento está visível
-                rootMargin: "0px 0px -50px 0px"
-            });
+            }, { threshold: 0.2 });
 
             elements.forEach(el => observer.observe(el));
         }
 
-        // Função de download
+        // Animação especial quando clica no menu
+        function handleNavClick() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove animação anterior
+                    document.querySelectorAll('section').forEach(section => {
+                        section.classList.remove('section-highlight');
+                    });
+
+                    // Pega o ID da seção alvo
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        // Adiciona animação de destaque após rolar
+                        setTimeout(() => {
+                            targetSection.classList.add('section-highlight');
+                        }, 600); // tempo aproximado do scroll suave
+                    }
+                });
+            });
+        }
+
+        // Download simulado
         function startDownload() {
             alert("✅ Download iniciado! (21,6 MB)\n\nSalvando BaconExecutor_v2.3.5.zip...");
             setTimeout(() => {
@@ -339,9 +353,10 @@
             }, 1400);
         }
 
-        // Inicia as animações quando a página carregar
+        // Inicializa tudo
         window.addEventListener('load', () => {
             handleScrollAnimation();
+            handleNavClick();
         });
     </script>
 </body>
