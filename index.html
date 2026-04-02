@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bacon Executor - Free Roblox Exploit</title>
+  
     <link rel="icon" type="image/png" href="icon.png">
   
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+       
         html { scroll-behavior: smooth; }
        
         body {
@@ -20,6 +22,17 @@
             overflow-x: hidden;
         }
 
+        /* Animações ao rolar */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Animações da Hero */
         .hero-content h2 {
             font-size: 4.8rem;
@@ -27,6 +40,8 @@
             background: linear-gradient(to right, #ff8800, #ff4400);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(40px);
             animation: titlePop 1.2s ease forwards 0.3s;
         }
 
@@ -34,18 +49,61 @@
             font-size: 1.7rem;
             margin: 20px 0 40px;
             color: #ddd;
+            opacity: 0;
+            transform: translateY(30px);
             animation: fadeUp 1s ease forwards 0.9s;
         }
 
-        .btn-primary, .btn-download {
+        /* Botões - Visual EXATAMENTE como antes */
+        .btn-primary {
+            padding: 16px 42px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff8800, #ff4400);
+            color: white;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 1.4s;
             transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-        .btn-primary:hover, .btn-download:hover {
+
+        .btn-primary:hover {
             transform: translateY(-6px) scale(1.08);
         }
 
-        @keyframes titlePop { to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .btn-download {
+            background: linear-gradient(90deg, #ff8800, #ff5500);
+            color: #000;
+            font-size: 1.45rem;
+            font-weight: 700;
+            padding: 20px 65px;
+            margin-top: 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(255, 136, 0, 0.4);
+            display: inline-block;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 0 12px 35px rgba(255, 136, 0, 0.6);
+            background: linear-gradient(90deg, #ffaa00, #ff6600);
+        }
+
+        /* Keyframes */
+        @keyframes titlePop {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Navbar */
         .navbar {
@@ -60,9 +118,12 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 140, 0, 0.4);
         }
-        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
+        .brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
         .highlight { color: #ff8800; text-shadow: 0 0 20px #ff8800; }
-
         .nav-links {
             list-style: none;
             display: flex;
@@ -97,7 +158,11 @@
             inset: 0;
             background: linear-gradient(rgba(26,15,0,0.85), rgba(61,42,0,0.9));
         }
-        .hero-content { position: relative; z-index: 2; max-width: 900px; }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
 
         .section-title {
             text-align: center;
@@ -162,12 +227,22 @@
             font-size: 1.05rem;
             line-height: 1.8;
         }
+        .roblox-link {
+            color: #00b0ff;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        .roblox-link:hover {
+            color: #00d4ff;
+        }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar">
-            <h1 class="brand-name">Bacon <span class="highlight">Executor</span></h1>
+            <div class="logo-container">
+                <h1 class="brand-name">Bacon <span class="highlight">Executor</span></h1>
+            </div>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
                 <li><a href="#install">Como Instalar</a></li>
@@ -181,9 +256,9 @@
             <div class="hero-content">
                 <h2>The Best Roblox Executor</h2>
                 <p class="hero-subtitle">Rápido. Indetectável. Totalmente Grátis.</p>
-                <button onclick="downloadFile()" class="btn btn-primary">
+                <a href="#" onclick="downloadFile(); return false;" class="btn btn-primary">
                     Baixar Agora - v2.3.5
-                </button>
+                </a>
             </div>
         </section>
 
@@ -205,11 +280,11 @@
                 ⚠️ Desative temporariamente seu antivírus antes de instalar. Use apenas para fins educativos.
             </div>
             <div class="install-steps">
-                <div class="step-card animate-on-scroll"><div class="step-number">1</div><h3>Baixe o Executor</h3><p>Clique no botão e salve o arquivo .rar.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">1</div><h3>Baixe o Executor</h3><p>Clique no botão e salve o .rar.</p></div>
                 <div class="step-card animate-on-scroll"><div class="step-number">2</div><h3>Extraia o Arquivo</h3><p>Clique direito → Extrair Tudo.</p></div>
-                <div class="step-card animate-on-scroll"><div class="step-number">3</div><h3>Execute o Programa</h3><p>Abra BaconExecutor.exe como administrador.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">3</div><h3>Execute o Programa</h3><p>Abra <strong>BaconExecutor.exe</strong> como administrador.</p></div>
                 <div class="step-card animate-on-scroll"><div class="step-number">4</div><h3>Abra o Roblox</h3><p>Entre em qualquer jogo.</p></div>
-                <div class="step-card animate-on-scroll"><div class="step-number">5</div><h3>Attach</h3><p>Clique em Attach ou pressione Insert.</p></div>
+                <div class="step-card animate-on-scroll"><div class="step-number">5</div><h3>Attach</h3><p>Clique em Attach ou pressione <strong>Insert</strong>.</p></div>
                 <div class="step-card animate-on-scroll"><div class="step-number">6</div><h3>Execute Scripts</h3><p>Cole o script e clique em Executar.</p></div>
             </div>
         </section>
@@ -217,45 +292,48 @@
         <section id="download" style="padding: 100px 5%;">
             <h2 class="section-title animate-on-scroll">Download</h2>
             <div class="download-card animate-on-scroll">
-                <h3>Bacon Executor v2.3.5</h3>
-                <p>Última atualização: Abril 2026</p>
-                <ul style="list-style: none; margin: 30px 0; text-align: left; font-size: 1.15rem;">
-                    <li>✔ Tamanho: 21,6 MB</li>
-                    <li>✔ Compatível: Windows 10 / 11</li>
-                    <li>✔ Versão: 2.3.5</li>
-                </ul>
-                <button onclick="downloadFile()" class="btn btn-download">
+                <div class="download-info">
+                    <h3>Bacon Executor v2.3.5</h3>
+                    <p>Última atualização: Abril 2026</p>
+                    <ul style="list-style: none; margin: 30px 0; text-align: left; font-size: 1.15rem;">
+                        <li>✔ Tamanho: 21,6 MB</li>
+                        <li>✔ Compatível: Windows 10 / 11</li>
+                        <li>✔ Versão: 2.3.5 (Build 235)</li>
+                    </ul>
+                </div>
+                <a href="#" onclick="downloadFile(); return false;" class="btn btn-download">
                     ⬇ Baixar Grátis Agora
-                </button>
+                </a>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Siga o DONO No Roblox! <a href="https://www.roblox.com/pt/users/9630022401/profile" target="_blank" class="roblox-link">Olhadinhaso</a></p>
-        <p style="margin-top: 12px; font-size: 1rem; color: #777;">© 2026 Bacon Executor</p>
+        <p>
+            Siga o DONO No Roblox! ( eu )
+            <a href="https://www.roblox.com/pt/users/9630022401/profile" target="_blank" class="roblox-link">
+                Olhadinhaso
+            </a>
+        </p>
+        <p style="margin-top: 12px; font-size: 1rem; color: #777;">
+            Todos os direitos reservados © 2026 Bacon Executor
+        </p>
     </footer>
 
     <script>
         function downloadFile() {
             const fileName = "BaconExecutor_v2.3.5.rar";
             
-            // Tenta várias formas de download
-            try {
-                const link = document.createElement('a');
-                link.href = fileName;
-                link.download = fileName;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                alert("✅ Download iniciado!\n\nArquivo: BaconExecutor_v2.3.5.rar\n\nVerifique sua pasta de Downloads.");
-            } catch (e) {
-                alert("❌ Erro ao iniciar download.\n\nVerifique se o arquivo 'BaconExecutor_v2.3.5.rar' está na mesma pasta que o index.html");
-            }
+            const link = document.createElement('a');
+            link.href = fileName;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            alert("✅ Download iniciado!\n\nArquivo: BaconExecutor_v2.3.5.rar");
         }
 
-        // Animações de scroll
         function handleScrollAnimation() {
             const elements = document.querySelectorAll('.animate-on-scroll');
             const observer = new IntersectionObserver((entries) => {
